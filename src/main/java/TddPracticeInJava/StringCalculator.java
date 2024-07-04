@@ -2,7 +2,12 @@ package TddPracticeInJava;
 
 public class StringCalculator {
 
+    public static final int INVALID_STATUS = -1;
     public int add(final String numbers) throws Exception {
-        throw new Exception("Not implemented");
+        int value = INVALID_STATUS;
+        if (numbers.isEmpty()) {
+            value = 0;
+        }
+       return value;
     }
 }

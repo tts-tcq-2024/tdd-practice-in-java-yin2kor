@@ -1,10 +1,18 @@
 package TddPracticeInJava;
 
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import java.security.InvalidParameterException;
 
 public class StringCalculatorTest {
 
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
     
     @Test
     public void ExpectZeroForEmptyInput() throws Exception {
@@ -65,5 +73,22 @@ public class StringCalculatorTest {
         int result = objUnderTest.add(input);
 
       assertEquals(expectedResult,result);
+    }
+
+    @Test
+    public void ThrowExceptionWithNegativeNumbers() {
+        String input = "-1,-2";
+        StringCalculator objUnderTest = new StringCalculator();
+        exception.expect(InvalidParameterException.class);
+        int result = objUnderTest.add(input);
+    }
+
+    @Test
+    public void ExpectCustomDelimiter2(){
+        String input = "//***\n1***2\n3";
+        StringCalculator objUnderTest = new StringCalculator();
+        int result = objUnderTest.add(input);
+        assertEquals(6, result);
+
     }
 }

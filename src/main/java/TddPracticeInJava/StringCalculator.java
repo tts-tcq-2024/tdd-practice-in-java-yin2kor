@@ -2,6 +2,7 @@ package TddPracticeInJava;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,8 +35,8 @@ public class StringCalculator {
         List<Integer> validNumbers = new ArrayList<>();
         for (String subNumber : numbers) {
             int number = Integer.parseInt(subNumber);
-            AppendToNegativeListIfNegative(negativeNumbers, number);
-            AppendToNegativeListIfValid(validNumbers, number);
+            appendToListIfNegative(negativeNumbers, number);
+            appendToListIfValid(validNumbers, number);
         }
         if (negativeNumbers.isEmpty()) {
             value = validNumbers.stream().mapToInt(Integer::intValue).sum();
@@ -45,22 +46,14 @@ public class StringCalculator {
         return value;
     }
 
-    boolean isNumberWithinRange(int number) {
-        boolean isValid = false;
-        if (number <= MAX_NUMBER && number >= MIN_NUMBER){
-            isValid = true;
-        }
-        return isValid;
-    }
-
-    void AppendToNegativeListIfNegative(List<Integer> integers, int number) {
+    void appendToListIfNegative(List<Integer> integers, int number) {
         if (number < MIN_NUMBER) {
             integers.add(number);
         }
     }
 
-    void AppendToNegativeListIfValid(List<Integer> integers, int number) {
-        if (isNumberWithinRange(number)) {
+    void appendToListIfValid(List<Integer> integers, int number) {
+        if (number <= MAX_NUMBER && number >= MIN_NUMBER) {
             integers.add(number);
         }
     }
@@ -97,10 +90,6 @@ public class StringCalculator {
             index = matcher.end();
         }
         return index;
-    }
-
-    private String[] splitByDelimiter(String number, String regex) {
-        return number.split(regex);
     }
 
 
